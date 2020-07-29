@@ -1,0 +1,32 @@
+#include <Keypad.h>
+#include <LiquidCrystal.h>
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(rs,en,d4,d5,d6,d7);//pin of lcd screen
+const byte ROWS = 4; // Four rows
+const byte COLS = 4; // four columns
+// Define the Keymap
+char keys[ROWS][COLS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
+};
+// Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
+byte rowPins[ROWS] = { row1,row2,row3,row4 };
+// Connect keypad COL0, COL1 and COL2 to these Arduino pins.
+byte colPins[COLS] = { col1,col2,col3,col4 };
+//  Create the Keypad
+Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
+void setup()
+{
+
+  lcd.begin(16, 2);//initializing LCD
+}
+void loop()
+{
+  char key = kpd.getKey(); //storing pressed key value in a char
+  if (key != NO_KEY)
+{
+      lcd.print(key); //showing pressed character on LCD
+  }
+}
